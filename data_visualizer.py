@@ -2,8 +2,6 @@ from matplotlib import pyplot as plt
 import numpy as np
 from database_setup import data_plot_fetcher
 
-
-
 indexes = {
     "player_id" : 0,
     #"first_name" : 1,
@@ -169,29 +167,10 @@ def gradient_descent_input_fetcher():
         if sample[indexes["salary"]] > 1000000 and sample[indexes["games_played"]] > 0:
             result_data.append(key_data) 
 
-    #print(result_data)
-
-    # #fetch per game stats (15-27)
-    # keys = ["minutes", "fg", "fga", "three_pt", "three_pta", "ft", "fta", "pts", "reb", "ass", "stl", "turn", "pf"]
-    # games_played = []
-    # for sample in raw_data:
-    #     if sample[indexes["salary"]] > 1000000 and sample[indexes["games_played"]] > 0:
-    #         games_played.append(sample[indexes["games_played"]])
-    
-    # for sample in raw_data:
-    #     key_data = []
-    #     for key in keys:
-    #         if sample[indexes["salary"]] > 1000000 and sample[indexes["games_played"]] > 0:
-    #             key_data.append(sample[indexes[key]] / sample[indexes["games_played"]])
-    #     #key_data = (np.divide(key_data, games_played)).tolist()
-    #     result_data.append(key_data)
-    # #print(result_data)
-    
     result_data = np.array(result_data)
-   
-    #print(np.shape(result_data))
     return result_data
-def new_gradient_descent_input_fetcher():
+
+def new_gradient_descent_input_fetcher(): #testing gradient_descent with different parameters
     #order of outputs:
     '''
     0: Usg
@@ -230,7 +209,6 @@ def new_gradient_descent_input_fetcher():
     return result_data
         
 
-
 def gradient_descent_output_fetcher():
     raw_data = data_plot_fetcher()
     salaries = []
@@ -239,13 +217,24 @@ def gradient_descent_output_fetcher():
             salaries.append(sample[indexes["salary"]])
     salaries = np.array(salaries)
     return salaries
-    #print(salaries)
-    #print(np.shape(salaries))
 
+def individual_input_output(data): #gets input, output, for a single player
+    keys = ["experience", "minutes", "fg", "fga", "three_pt", "three_pta", "ft", "fta", "pts", "reb", "ass", "stl", "turn", "usg", "per"]
+    input_data = []
+    keys = ["experience", "minutes", "fg", "fga", "three_pt", "three_pta", "ft", "fta", "pts", "reb", "ass", "stl", "turn", "usg", "per"]
+    for key in keys:
+        if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
+            input_data.append(data[indexes[key]])
+    keys = ["minutes", "fg", "fga", "three_pt", "three_pta", "ft", "fta", "pts", "reb", "ass", "stl", "turn", "pf"]
+    for key in keys:
+        if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
+            input_data.append(data[indexes[key]] / data[indexes["games_played"]])
+    if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
+            output = (data[indexes["salary"]])
+    return input_data, output
     
-#gradient_descent_input_fetcher()
-#gradient_descent_output_fetcher()
-#new_gradient_descent_input_fetcher()
+
+
 
 
 

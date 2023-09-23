@@ -5,12 +5,9 @@ KEY = 'c08e20fc0f3b4261b2f53a59b981415b'
 SALARY_URL = 'https://api.sportsdata.io/v3/nba/scores/json/Players?key=' + KEY
 STATS_URL = 'https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/2023?key=' + KEY
 
-def getSalary():
+def getSalary(): #getting relevant data from STATS_URL link
     salary_json = requests.get(SALARY_URL).json()
-    #print(salary_json)
     count = 0
-    #print(len(salary_json))
-    #print(salary_json[-1])
     data = []
     for player in salary_json:
         id = player['PlayerID']
@@ -30,7 +27,7 @@ def getSalary():
     #print(count)
     return data
 
-def getStats():
+def getStats(): #getting relevant data from SALARY_URL link
     stats_json = requests.get(STATS_URL).json()
     count = 0
     data = []
@@ -61,10 +58,9 @@ def getStats():
             data.append([id, games_played, minutes, fg, fga, three_pt, three_pta, ft, fta, pts, reb, ass, stl, blk, turnovers, pf, tspct, usg])
     #print(count)
     return data
-#salaries = getSalary()
-#stats = getStats()
 
-def get_per():
+
+def get_per(): #Gettign Player Efficiency Rating (PER) from STATS_URL link
     stats_json = requests.get(STATS_URL).json()
     count = 0
     data = []

@@ -9,12 +9,8 @@ def create_connection(db_file):
     conn = None
     try:
         conn = sqlite3.connect(db_file)
-        #print(sqlite3.version)
     except Error as e:
         print(e)
-    # finally:
-    #     if conn:
-    #         conn.close()
     return (conn)
 
 def create_table(conn, create_table_sql):
@@ -65,9 +61,6 @@ def join_tables(conn):
     '''
     cur = conn.cursor()
     cur.execute(sql)
-    # result = cur.fetchall()
-    # for row in result:
-    #     print(row)
 
 def per_update(conn):
     data = get_per()
@@ -92,6 +85,19 @@ def data_plot_fetcher():
     for row in rows:
         data.append(row)
     return data
+
+def data_by_name(first, last):
+    sql = '''SELECT * FROM combined_table
+    WHERE first_name = ? AND last_name = ?'''
+    conn = create_connection(database)
+    cur = conn.cursor()
+    cur.execute(sql, [first, last])
+    rows = cur.fetchall()
+    data = []
+    for row in rows:
+        data.append(row)
+    
+    return data[0]
 
 def main():
     
@@ -129,9 +135,9 @@ def main():
     #                             );"""
     #salaries = getSalary()
     #stats = getStats()
+
     # create a database connection
     conn = create_connection(database)
-    #print(conn)
 
     # create tables
     if conn is not None:

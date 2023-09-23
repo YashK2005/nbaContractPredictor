@@ -1,8 +1,10 @@
 import copy
 import numpy as np
 from data_visualizer import gradient_descent_input_fetcher, gradient_descent_output_fetcher, new_gradient_descent_input_fetcher
+
 import math
  
+#multiple options to test algorithm with different parameters, and square rooting salary data
 x = gradient_descent_input_fetcher()
 #x = new_gradient_descent_input_fetcher()
 y = gradient_descent_output_fetcher()
@@ -136,28 +138,45 @@ def zscore_normalize_features(X):
 
     return (X_norm, mu, sigma)
  
-#alpha = 0.11
-
-alpha = 0.11
-iterations = 50000
+ALPHA = 0.11 #learning rate
+ITERATIONS = 100000 #number of times to run gradient_descent
 x_norm, x_mu, x_sigma = zscore_normalize_features(x)
-beal = x_norm[0]
-curry = x_norm[10]
-giannis = x_norm[13]
-w_final, b_final, J_hist = gradient_descent(x_norm, y, w_init, b_init, compute_cost, compute_gradient, alpha, iterations)
+# for i in x_mu:
+#     print(i, end=", ")
+# print("\n")
+# for i in x_sigma:
+#     print(i, end=", ")
 
-bradley_beal = np.dot(beal, w_final) + b_final #brad beal
-steph_curry = np.dot(curry, w_final) + b_final
-giannis_ant = np.dot(giannis, w_final) + b_final
+#w_final, b_final, J_hist = gradient_descent(x_norm, y, w_init, b_init, compute_cost, compute_gradient, ALPHA, ITERATIONS)
 
-print(bradley_beal, steph_curry, giannis_ant)
+# #test data
+# beal = x_norm[0]
+# curry = x_norm[10]
+# giannis = x_norm[13]
+# otto = x_norm[1]
+# bradley_beal = np.dot(beal, w_final) + b_final #brad beal
+# steph_curry = np.dot(curry, w_final) + b_final
+# giannis_ant = np.dot(giannis, w_final) + b_final
+# otto_pjr = np.dot(otto, w_final) + b_final
+
+# print(bradley_beal, steph_curry, giannis_ant, otto_pjr)
+# print(w_final)
+# print(b_final)
 
 
-print(w_final)
-print(b_final)
 
+''' using regulary salary, with normalized inputs (100,000 iterations)
+[ 2935004.1726221   3260051.45000291  3894326.5545876  -5048306.39625757
+ -3145781.18889619  6489313.06979566  5337976.61418766 -6502342.18458175
+  -597606.62387763 -4005040.68316823  1433875.67877789 -3172759.42646885
+    92974.62947959    75778.36198587 -4120343.26071334 -6108529.00941579
+ 17925877.75368398 -9533862.75547973  2463374.95152149 -3164422.76127016
+  3404563.29875213   880358.48816297  2463539.16063948  5017861.07046103
+  1900053.94121004  3652281.5967721  -2849632.98686238   833256.5211426 ]
+  12767957.222222228
+ ''' 
 
-''' using regulary salary, with normalized inputs
+''' using regulary salary, with normalized inputs (50,000 iterations)
 [ 2933000.96906488  3264778.45856615  3098118.61707276 -5192769.48781442
  -3251325.55720699  6488795.99919314  4705624.14117378 -6210304.91660523
    682729.02243221 -4055139.34174136  1413322.80528916 -3196762.41911576
