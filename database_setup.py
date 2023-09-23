@@ -9,7 +9,7 @@ def create_connection(db_file):
     conn = None
     try:
         conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
+        #print(sqlite3.version)
     except Error as e:
         print(e)
     # finally:
@@ -93,7 +93,6 @@ def data_plot_fetcher():
         data.append(row)
     return data
 
-
 def main():
     
 
@@ -132,7 +131,7 @@ def main():
     #stats = getStats()
     # create a database connection
     conn = create_connection(database)
-    print(conn)
+    #print(conn)
 
     # create tables
     if conn is not None:
