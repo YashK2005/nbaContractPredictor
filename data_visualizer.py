@@ -232,14 +232,3 @@ def individual_input_output(data): #gets input, output, for a single player
     if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
             output = (data[indexes["salary"]])
     return input_data, output
-    
-
-
-
-
-
-
-
-
-
-

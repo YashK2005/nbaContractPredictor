@@ -69,9 +69,17 @@ def predictor(first_name, last_name, w=w, b=b, mu=mu, sigma=sigma):
         input, output = individual_input_output(data)
         input = (input - mu) / sigma
         salary_prediction = (np.dot(input, w) + b)
+        fairness = ""
+        if salary_prediction > output: fairness = "underpaid"
+        else: fairness = "overpaid"
         print(first_name + " " + last_name + ":", end=" ")
-        print(salary_prediction, output)
-    except: print("ERROR")
+        print(int(salary_prediction), output, fairness)
+        return salary_prediction, output
+
+    except: 
+        print("ERROR: Player not found or hasn't played enough games to provide an accurate result")
+        return 0,0
+    
 predictor("Pascal", "Siakam", w, b, mu, sigma)
 predictor("Stephen", "Curry")
 predictor("Bradley", "Beal")
@@ -91,3 +99,4 @@ predictor("Alex", "Len")
 predictor("Kevin", "Love")
 predictor("John", "Konchar")
 predictor("Shaquille", "Harrison")
+predictor("Kyle", "Lowry")

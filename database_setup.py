@@ -88,7 +88,7 @@ def data_plot_fetcher():
 
 def data_by_name(first, last):
     sql = '''SELECT * FROM combined_table
-    WHERE first_name = ? AND last_name = ?'''
+    WHERE first_name = ? COLLATE NOCASE AND last_name = ? COLLATE NOCASE'''
     conn = create_connection(database)
     cur = conn.cursor()
     cur.execute(sql, [first, last])
