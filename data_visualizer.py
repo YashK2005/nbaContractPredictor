@@ -34,12 +34,17 @@ indexes = {
 
 def find_ideal_parameters():
     #selecting best parameters for model by calculating pearson coefficients for 40+ stats
-    independent = "three_pt"
+    independent = "pts"
     x = np.array([])
     salary = np.array([])
     data = (data_plot_fetcher())
     for sample in data:
         if sample[indexes["salary"]] > 1000000 and sample[indexes["games_played"]] > 0:
+            three_pt = sample[indexes["three_pt"]]
+            three_pta = sample[indexes["three_pta"]]
+            result = three_pta and three_pt / three_pta or 0
+            #x = np.append(x, [result])
+
             x = np.append(x, [sample[indexes[independent]]])
             salary = np.append(salary, [sample[indexes["salary"]]])
     #print(x, salary)
@@ -51,7 +56,8 @@ def find_ideal_parameters():
     plt.xlim(left=0)
     plt.ylim(bottom=0)
 
-    plt.xlabel(independent)
+    #plt.xlabel(independent)
+    plt.xlabel("pts")
     plt.ylabel("salary")
     plt.show()
 
@@ -223,12 +229,14 @@ def individual_input_output(data): #gets input, output, for a single player
     input_data = []
     keys = ["experience", "minutes", "fg", "fga", "three_pt", "three_pta", "ft", "fta", "pts", "reb", "ass", "stl", "turn", "usg", "per"]
     for key in keys:
-        if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
-            input_data.append(data[indexes[key]])
+        
+        input_data.append(data[indexes[key]])
     keys = ["minutes", "fg", "fga", "three_pt", "three_pta", "ft", "fta", "pts", "reb", "ass", "stl", "turn", "pf"]
     for key in keys:
-        if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
-            input_data.append(data[indexes[key]] / data[indexes["games_played"]])
-    if data[indexes["salary"]] > 1000000 and data[indexes["games_played"]] > 0:
-            output = (data[indexes["salary"]])
+        
+        input_data.append(data[indexes[key]] / data[indexes["games_played"]])
+    
+    output = (data[indexes["salary"]])
     return input_data, output
+
+# find_ideal_parameters()

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>NBA Player Salary Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>NBA Player Salary Prediction</h1>
@@ -14,13 +15,21 @@
         <br>
         <input type="submit" value="Predict Salary">
     </form>
-    {% if predicted_salary %}
+    {% if player_not_found %}
+    <script>
+        // JavaScript code to display a pop-up if the player is not found
+        window.addEventListener('DOMContentLoaded', function() {
+            alert('Player not found. Please check the player name.');
+        });
+    </script>
+    {% elif predicted_salary %}
     <h2>Salary Prediction:</h2>
     <p>Predicted Salary: ${{ predicted_salary }}</p>
     <p>Actual Salary: ${{ actual_salary }}</p>
     <p>{{ message }}</p>
-    {% elif message %}
-    <p>{{ message }}</p>
     {% endif %}
+    <a href="/how_does_this_work">How Does this Work?</a>
+    
+    
 </body>
 </html>

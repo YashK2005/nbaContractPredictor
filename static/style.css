@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #bae0f3;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 380px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px
+}
+
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    text-align: center;
+    color: #000000;
+    margin-top: 20px;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+a {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    /*color: #000;*/
+    font-size: 18px;
+}
+
+.image-container {
+    display: flex; /* Use Flexbox to arrange the images horizontally */
+    justify-content: space-between; /* Space the images evenly */
+    margin: 20px 0; /* Add margin to separate the images from the paragraphs */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Style individual images */
+.image-container img {
+    max-width: 48%; /* Adjust the width as needed to fit your design */
+    height: auto; /* Maintain aspect ratio */
+}
