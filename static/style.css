@@ -73,10 +73,24 @@ a {
     margin: 20px 0; /* Add margin to separate the images from the paragraphs */
     padding-left: 20px;
     padding-right: 20px;
+    max-width: 100%;
 }
 
 /* Style individual images */
-.image-container img {
+.img-container {
     max-width: 48%; /* Adjust the width as needed to fit your design */
+    min-width: 45%;
     height: auto; /* Maintain aspect ratio */
+    flex-basis: calc(50% - 10px);
 }
+
+.fig_img {
+    max-width: 100%;
+    min-width: 100%;
+    height: auto;
+}
+
+figcaption {
+    text-align: center;
+}
+

@@ -8,18 +8,30 @@
 </head>
 <body>
     <h1>How Does This Work?</h1>
-    <p>My project uses supervised machine learning (linear regression) to predict a NBA player's salary based on their stats, and then compares their expected salary to their actual salary to determine if the player is underpaid or overpaid. The first step was collecting data about NBA players and their stats and salaries. I used the SportsData.io API to get jsons for player stats and salaries. I then parsed and organized the raw data into SQLite database tables.</p>
-    
-    <p>Next, I used the matplotlib library to create scatter plots for stats vs salary. I also calculated the pearson correlation coefficient between stats and salary to determine which player statistic had a highest impact on a player's salary. I tested over 50 stats, and ultimately picked 28 parameters for my model.</p>
+    <p>My project uses supervised machine learning (linear regression) to predict a NBA player's salary based on their stats, and then compares their expected salary to their actual salary to determine if the player is underpaid or overpaid. The first step was collecting data about NBA players and their stats and salaries. I used the SportsData.io API to fetch jsons containing the stats and salaries of over 340 players. I then parsed and organized the raw data into SQLite database tables.</p>
+    <p>Next, I used the matplotlib and numpy libraries to create scatter plots for stats vs salary. I also calculated the pearson correlation coefficient between stats and salary to determine which statistics had a highest impact on a player's salary. I tested over 50 stats, and ultimately picked 28 parameters for my model.</p>
+
     <div class="image-container">
-        <img src="{{ url_for('static', filename='pts_salary.png') }}" alt="Graph showing per vs salary">
-        <img src="{{ url_for('static', filename='3pt%_salary.png') }}" alt="Graph showing 3pt% vs salary">
+        <img class="img-container" src="{{ url_for('static', filename='pts_salary.png') }}" alt="Graph showing per vs salary">
+        <img class="img-container" src="{{ url_for('static', filename='3pt%_salary.png') }}" alt="Graph showing 3pt% vs salary">
     </div>
     <!-- Add two example plots, one for 3pt% vs salary and one for PER or pts/gm vs salary, to show how I selected parameters (looking at scatter plot and comparing pearson correlation coefficient) -->
     <p>For example, the graph on the left compares total points scored vs salary. The pearson correlation coefficient for this relationship is 0.73, which shows that there is a strong relationship. Meanwhile the graph on the right compares 3-point-percentage with salary, and has a pearson correlationship coefficient of just 0.05, which means that there is almost no relationship between the two variables. For my model, I chose total points as a feature, but not 3pt%, as we can see that points has a greater impact on a player's salary.</p>
     <p>Once I decided on the parameters, I created functions to fetch the relevant statsitics from the database. For the machine learning algorithm, I first used z-score normalization on my features, to ensure that all features had a similar range of values (originally some features had a range 100 times greater than other features).</p>
     <p>I then created a mean squared error function to compute the cost. I used numpy arrays instead of python's built-in arrays to improve the speed of the algorithm, since numpy uses vectorized operations. I then computed the partial derivative of the cost function to come up formulas for gradient descent.</p> 
     <!-- Add formulas for cost function and gradient-->
+    <div class="image-container">
+        <figure> 
+            <img class="fig_img" src="{{ url_for('static', filename='CostFormula.png') }}" alt="Cost Function Formula">
+            <figcaption>Mean Squared Error Cost function, f(x) = wx + b</figcaption>
+        </figure>
+
+        <figure>
+            <img class="fig_img" src="{{ url_for('static', filename='GradientFormula.png') }}" alt="Gradient Formula">
+            <figcaption>Formula for computing the gradient of each feature</figcaption>
+        </figure>
+        
+    </div>
     <p>After testing learning rates, I ran the gradient descent alogrithm for 100,000 iterations, and recorded the weights for each parameter. Finally, I created a prediction function, which fetches a player's stats from the database, normalizes the stats, and then computes the player's expected salary. I compare it with the player's actual salary to determine if the player is overpaid or underpaid. </p>
     <p>Last, I created this web app that you are looking at right now using Flask, Python, HTML, and CSS.</p>
     <a href="/">Back to Home</a>
