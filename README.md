@@ -1,5 +1,5 @@
-# [NBA Contract Predictor](http://nbacontractpredictor.pythonanywhere.com/how_does_this_work)
-#### [Click for link to website](http://nbacontractpredictor.pythonanywhere.com/how_does_this_work)
+# [NBA Contract Predictor](http://nbacontractpredictor.pythonanywhere.com)
+#### [Click for link to website](http://nbacontractpredictor.pythonanywhere.com)
 
 Using machine learning algorithms to analyze NBA players contracts and determine whether players are underpaid or overpaid.
 
@@ -13,4 +13,4 @@ I then created a mean squared error function to compute the cost. I used numpy a
 
 After testing learning rates, I ran the gradient descent alogrithm for 100,000 iterations, and recorded the weights for each parameter. Finally, I created a prediction function, which fetches a player's stats from the database, normalizes the stats, and then computes the player's expected salary. I compare it with the player's actual salary to determine if the player is overpaid or underpaid.
 
-Finally, I created a [web app](http://nbacontractpredictor.pythonanywhere.com/how_does_this_work) using Flask, Python, HTML, and CSS.
+Finally, I created a [web app](http://nbacontractpredictor.pythonanywhere.com) using Flask, Python, HTML, and CSS.
