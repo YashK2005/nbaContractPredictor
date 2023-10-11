@@ -3,7 +3,7 @@
 
 Using machine learning algorithms to analyze NBA players' contracts and determine whether players are underpaid or overpaid.
 
-This project uses supervised machine learning (linear regression) to predict a NBA player's salary based on their stats, and then compares their expected salary to their actual salary to determine if the player is underpaid or overpaid. The first step was collecting data about NBA players and their stats and salaries. I used the SportsData.io API to fetch jsons containing the stats and salaries of over 340 players. I then parsed and organized the raw data into SQLite database tables.
+This project uses supervised machine learning to predict a NBA player's salary based on their stats, and then compares their expected salary to their actual salary to determine if the player is underpaid or overpaid. The first step was collecting data about NBA players and their stats and salaries. I used the SportsData.io API to fetch jsons containing the stats and salaries of over 340 players. I then parsed and organized the raw data into SQLite database tables.
 
 Next, I used the matplotlib and numpy libraries to create scatter plots for stats vs salary. I also calculated the pearson correlation coefficient between stats and salary to determine which statistics had a highest impact on a player's salary. I tested over 50 stats, and ultimately picked 28 parameters for my model.
 
