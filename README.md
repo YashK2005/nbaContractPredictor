@@ -13,4 +13,4 @@ I then created a mean squared error function to compute the cost. I used numpy a
 
 After testing learning rates, I ran the gradient descent alogrithm for 100,000 iterations, and recorded the weights for each parameter. Finally, I created a prediction function, which fetches a player's stats from the database, normalizes the stats, and then computes the player's expected salary. I compare it with the player's actual salary to determine if the player is overpaid or underpaid.
 
-Last, I created a [web app](http://nbacontractpredictor.pythonanywhere.com/how_does_this_work) using Flask, Python, HTML, and CSS.
+Finally, I created a [web app](http://nbacontractpredictor.pythonanywhere.com/how_does_this_work) using Flask, Python, HTML, and CSS.
