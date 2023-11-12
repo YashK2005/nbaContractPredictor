@@ -1,5 +1,4 @@
 # [NBA Contract Predictor](http://nbacontractpredictor.pythonanywhere.com)
-#### [Click for link to website](http://nbacontractpredictor.pythonanywhere.com)
 
 Using machine learning algorithms to analyze NBA players' contracts and determine whether players are underpaid or overpaid.
 
