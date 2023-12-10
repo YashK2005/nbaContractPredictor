@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from predicting_salary import predictor
+from database_setup import autocomplete_fetcher
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -10,22 +11,22 @@ def index():
     player_not_found = False
 
     if request.method == 'POST':
-        first_name = (request.form['first_name'].strip()).capitalize()
-        last_name = (request.form['last_name'].strip()).capitalize()
-        full_name = first_name + " " + last_name
-        predicted_salary, actual_salary = predictor(first_name, last_name)
+        #first_name = (request.form['first_name'].strip()).capitalize()
+        #last_name = (request.form['last_name'].strip()).capitalize()
+        full_name = request.form['player_name'].strip().capitalize()
+        predicted_salary, actual_salary, actual_name = predictor(full_name)
         predicted_salary = int(predicted_salary)
         
         print(predicted_salary, actual_salary)
 
         if predicted_salary > actual_salary:
             diff = f"{(predicted_salary - actual_salary):,}"
-            message = full_name + " is underpaid by $" + diff + "."
+            message = actual_name + " is underpaid by $" + diff + "."
         elif predicted_salary < actual_salary:
             diff = f"{(actual_salary - predicted_salary):,}"
-            message = full_name + " is overpaid by $" + diff + "."
+            message = actual_name + " is overpaid by $" + diff + "."
         else:
-            message = full_name + " is paid fairly."
+            message = actual_name + " is paid fairly."
         if predicted_salary == 0: 
             message = "Player not found. Check spelling and try again."
             player_not_found = True
@@ -37,6 +38,12 @@ def index():
 @app.route('/how_does_this_work')
 def how_does_this_work():
     return render_template('how_does_this_work.html')
+
+@app.route('/autocomplete', methods=['GET'])
+def autocomplete():
+    query = request.args.get('query', '')
+    results = autocomplete_fetcher(query)
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(debug=True)

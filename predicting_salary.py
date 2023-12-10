@@ -1,6 +1,7 @@
 import numpy as np
-from database_setup import data_by_name
+from database_setup import data_by_name, autocomplete_fetcher
 from data_visualizer import individual_input_output
+
 
 ''' w and b (using regulary salary, with normalized inputs (100,000 iterations))
 [ 2935004.1726221   3260051.45000291  3894326.5545876  -5048306.39625757
@@ -63,40 +64,41 @@ sigma = np.array([
          2.046858300477529, 2.471710645788755, 8.503150832430709, 2.871352517007864, 
          2.46122433578432, 0.43718430522316426, 1.0276414976143555, 0.8376509135226502]) 
 
-def predictor(first_name, last_name, w=w, b=b, mu=mu, sigma=sigma):
+def predictor(full_name, w=w, b=b, mu=mu, sigma=sigma):
     try:
-        data = data_by_name(first_name, last_name)
+        data = data_by_name(full_name)
         input, output = individual_input_output(data)
+        returned_full_name = data[1] + " " + data[2]
         input = (input - mu) / sigma
         salary_prediction = (np.dot(input, w) + b)
         fairness = ""
         if salary_prediction > output: fairness = "underpaid"
         else: fairness = "overpaid"
-        print(first_name + " " + last_name + ":", end=" ")
+        #print(first_name + " " + last_name + ":", end=" ")
         print(int(salary_prediction), output, fairness)
-        return salary_prediction, output
+        return salary_prediction, output, returned_full_name
 
     except: 
         print("ERROR: Player not found or hasn't played enough games to provide an accurate result")
-        return 0,0
+        return 0,0, ""
     
-predictor("Pascal", "Siakam", w, b, mu, sigma)
-predictor("Stephen", "Curry")
-predictor("Bradley", "Beal")
-predictor("Fred", "VanVleet")
-predictor("Malachi", "Flynn")
-predictor("Joe", "Wieskamp")
-predictor("LeBron", "James")
-predictor("Nikola", "Jokic")
-predictor("Joel", "Embiid")
-predictor("Jose", "Alvarado")
-predictor("DeAndre", "Jordan")
-predictor("Marcus", "Smart")
-predictor("Goga", "Bitadze")
-predictor("Maxi", "Kleber")
-predictor("Steven", "Adams")
-predictor("Alex", "Len")
-predictor("Kevin", "Love")
-predictor("John", "Konchar")
-predictor("Shaquille", "Harrison")
-predictor("Kyle", "Lowry")
+predictor("Pascal Siakam", w, b, mu, sigma)
+# predictor("Stephen", "Curry")
+# predictor("Bradley", "Beal")
+# predictor("Fred", "VanVleet")
+# predictor("Malachi", "Flynn")
+# predictor("Joe", "Wieskamp")
+# predictor("LeBron", "James")
+# predictor("Nikola", "Jokic")
+# predictor("Joel", "Embiid")
+# predictor("Jose", "Alvarado")
+# predictor("DeAndre", "Jordan")
+# predictor("Marcus", "Smart")
+# predictor("Goga", "Bitadze")
+# predictor("Maxi", "Kleber")
+# predictor("Steven", "Adams")
+# predictor("Alex", "Len")
+# predictor("Kevin", "Love")
+# predictor("John", "Konchar")
+# predictor("Shaquille", "Harrison")
+# predictor("Kyle", "Lowry")

@@ -86,18 +86,35 @@ def data_plot_fetcher():
         data.append(row)
     return data
 
-def data_by_name(first, last):
+def data_by_name(name):
+    print(name)
     sql = '''SELECT * FROM combined_table
-    WHERE first_name = ? COLLATE NOCASE AND last_name = ? COLLATE NOCASE'''
+             WHERE first_name LIKE ? COLLATE NOCASE OR last_name LIKE ? COLLATE NOCASE OR first_name || ' ' || last_name LIKE ? COLLATE NOCASE OR last_name || ' ' || first_name LIKE ? COLLATE NOCASE
+             ORDER BY salary DESC'''
+    print("hello")
     conn = create_connection(database)
     cur = conn.cursor()
-    cur.execute(sql, [first, last])
+    print("hi")
+    cur.execute(sql, [name + '%', name + '%', name + '%', name + '%'])
+    print("hey")
     rows = cur.fetchall()
     data = []
     for row in rows:
         data.append(row)
-    
+    print(data[0])
     return data[0]
+
+def autocomplete_fetcher(query):
+    sql = '''SELECT first_name || ' ' || last_name AS full_name FROM combined_table
+             WHERE first_name LIKE ? COLLATE NOCASE OR last_name LIKE ? COLLATE NOCASE OR full_name LIKE ? COLLATE NOCASE OR last_name || ' ' || first_name LIKE ? COLLATE NOCASE
+             ORDER BY salary DESC'''
+    conn = create_connection(database)
+    print(query)
+    cur = conn.cursor()
+    cur.execute(sql, [query + '%', query + '%', query + '%', query + '%'])
+    rows = cur.fetchall()
+    data = [row[0] for row in rows]  # Extracting only the full name from each row
+    return data
 
 def main():
     
