@@ -94,3 +94,31 @@ figcaption {
     text-align: center;
 }
 
+.autocomplete-suggestions {
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px; /* Adjust this value as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    /*position: absolute; /* Ensures the suggestions don't affect layout of other elements */
+    width: calc(100% - 22px); /* Adjust width to match the input field, accounting for padding/borders */
+    background-color: #fff;
+}
+
+.autocomplete-suggestions div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
+}
+
+.autocomplete-suggestions div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9; 
+}
+
