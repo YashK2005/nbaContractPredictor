@@ -21,8 +21,8 @@ build/
 .DS_Store
 
 # Database files
-*.db
-*.sqlite3
+# *.db
+# *.sqlite3
 
 # Environment variables
 .env
