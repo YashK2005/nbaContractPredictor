@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from predicting_salary import predictor
 from database_setup import autocomplete_fetcher
 from salary_analysis import get_salary_differences, format_salary
+import os
 
 app = Flask(__name__)
 
@@ -57,6 +58,14 @@ def autocomplete():
     query = request.args.get('query', '')
     results = autocomplete_fetcher(query)
     return jsonify(results)
+
+@app.route('/health')
+def health_check():
+    return jsonify({"status": "healthy"})
+
+@app.route('/ping')
+def ping():
+    return jsonify({"status": "ok"})
 
 if __name__ == '__main__':
     app.run(debug=True)
