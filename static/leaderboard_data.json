@@ -1,0 +1,247 @@
+{
+  "generated_at": "2025-04-02T00:29:06.970992",
+  "overpaid": [
+    {
+      "name": "Ben Simmons",
+      "actual_salary": 37893408,
+      "predicted_salary": 13850846.375337882,
+      "difference": 24042561.624662116
+    },
+    {
+      "name": "Rudy Gobert",
+      "actual_salary": 41000000,
+      "predicted_salary": 18593286.639082603,
+      "difference": 22406713.360917397
+    },
+    {
+      "name": "Lonzo Ball",
+      "actual_salary": 20465117,
+      "predicted_salary": 0,
+      "difference": 20465117
+    },
+    {
+      "name": "Klay Thompson",
+      "actual_salary": 43219440,
+      "predicted_salary": 24674828.569328204,
+      "difference": 18544611.430671796
+    },
+    {
+      "name": "Tobias Harris",
+      "actual_salary": 39270150,
+      "predicted_salary": 22446817.683909163,
+      "difference": 16823332.316090837
+    },
+    {
+      "name": "Michael Porter Jr.",
+      "actual_salary": 33386850,
+      "predicted_salary": 17146932.94119897,
+      "difference": 16239917.058801029
+    },
+    {
+      "name": "Fred VanVleet",
+      "actual_salary": 40806300,
+      "predicted_salary": 24739295.31198488,
+      "difference": 16067004.688015118
+    },
+    {
+      "name": "Bradley Beal",
+      "actual_salary": 46741590,
+      "predicted_salary": 31972829.922723822,
+      "difference": 14768760.077276178
+    },
+    {
+      "name": "Duncan Robinson",
+      "actual_salary": 18154000,
+      "predicted_salary": 4750715.745437811,
+      "difference": 13403284.254562188
+    },
+    {
+      "name": "Davis Bertans",
+      "actual_salary": 17000000,
+      "predicted_salary": 3708018.925974712,
+      "difference": 13291981.074025288
+    },
+    {
+      "name": "Jamal Murray",
+      "actual_salary": 33833400,
+      "predicted_salary": 22136106.651033156,
+      "difference": 11697293.348966844
+    },
+    {
+      "name": "Trae Young",
+      "actual_salary": 40064220,
+      "predicted_salary": 28863631.534041226,
+      "difference": 11200588.465958774
+    },
+    {
+      "name": "CJ McCollum",
+      "actual_salary": 35802469,
+      "predicted_salary": 24734672.74790404,
+      "difference": 11067796.25209596
+    },
+    {
+      "name": "Paul George",
+      "actual_salary": 45640084,
+      "predicted_salary": 34754847.473023,
+      "difference": 10885236.526977003
+    },
+    {
+      "name": "Gordon Hayward",
+      "actual_salary": 31500000,
+      "predicted_salary": 21311355.757714506,
+      "difference": 10188644.242285494
+    },
+    {
+      "name": "Bruce Brown",
+      "actual_salary": 22000000,
+      "predicted_salary": 11852821.798759725,
+      "difference": 10147178.201240275
+    },
+    {
+      "name": "Evan Fournier",
+      "actual_salary": 18857143,
+      "predicted_salary": 8913767.72698477,
+      "difference": 9943375.27301523
+    },
+    {
+      "name": "Khris Middleton",
+      "actual_salary": 29320988,
+      "predicted_salary": 19562448.744635627,
+      "difference": 9758539.255364373
+    },
+    {
+      "name": "Jonathan Isaac",
+      "actual_salary": 17400000,
+      "predicted_salary": 7712786.439696895,
+      "difference": 9687213.560303105
+    },
+    {
+      "name": "Darius Garland",
+      "actual_salary": 34005250,
+      "predicted_salary": 24403423.160230942,
+      "difference": 9601826.839769058
+    }
+  ],
+  "underpaid": [
+    {
+      "name": "Shaquille Harrison",
+      "actual_salary": 12260,
+      "predicted_salary": 24630743.13755758,
+      "difference": -24618483.13755758
+    },
+    {
+      "name": "Tyrese Haliburton",
+      "actual_salary": 5808435,
+      "predicted_salary": 26045157.9137289,
+      "difference": -20236722.9137289
+    },
+    {
+      "name": "Desmond Bane",
+      "actual_salary": 3845083,
+      "predicted_salary": 23751653.601508506,
+      "difference": -19906570.601508506
+    },
+    {
+      "name": "Russell Westbrook",
+      "actual_salary": 3835738,
+      "predicted_salary": 21091406.580181736,
+      "difference": -17255668.580181736
+    },
+    {
+      "name": "Tyrese Maxey",
+      "actual_salary": 4343920,
+      "predicted_salary": 21441037.21031233,
+      "difference": -17097117.21031233
+    },
+    {
+      "name": "Christian Wood",
+      "actual_salary": 2709849,
+      "predicted_salary": 18485637.2458824,
+      "difference": -15775788.2458824
+    },
+    {
+      "name": "Lauri Markkanen",
+      "actual_salary": 17259999,
+      "predicted_salary": 30974079.616388522,
+      "difference": -13714080.616388522
+    },
+    {
+      "name": "Anthony Edwards",
+      "actual_salary": 9219512,
+      "predicted_salary": 22303529.071733937,
+      "difference": -13084017.071733937
+    },
+    {
+      "name": "Franz Wagner",
+      "actual_salary": 5508720,
+      "predicted_salary": 18166285.25032651,
+      "difference": -12657565.25032651
+    },
+    {
+      "name": "LaMelo Ball",
+      "actual_salary": 10900635,
+      "predicted_salary": 23361674.092617493,
+      "difference": -12461039.092617493
+    },
+    {
+      "name": "Cody Zeller",
+      "actual_salary": 2019706,
+      "predicted_salary": 14222216.666024216,
+      "difference": -12202510.666024216
+    },
+    {
+      "name": "DeAndre Jordan",
+      "actual_salary": 2019706,
+      "predicted_salary": 14187917.894997125,
+      "difference": -12168211.894997125
+    },
+    {
+      "name": "Devin Vassell",
+      "actual_salary": 5887899,
+      "predicted_salary": 16785102.77841273,
+      "difference": -10897203.77841273
+    },
+    {
+      "name": "Kevin Love",
+      "actual_salary": 3835738,
+      "predicted_salary": 14307312.189291475,
+      "difference": -10471574.189291475
+    },
+    {
+      "name": "Trey Murphy III",
+      "actual_salary": 3359280,
+      "predicted_salary": 13726907.02500552,
+      "difference": -10367627.02500552
+    },
+    {
+      "name": "Malik Beasley",
+      "actual_salary": 2019760,
+      "predicted_salary": 12212470.054916142,
+      "difference": -10192710.054916142
+    },
+    {
+      "name": "Jae Crowder",
+      "actual_salary": 2019760,
+      "predicted_salary": 12185165.533243192,
+      "difference": -10165405.533243192
+    },
+    {
+      "name": "Immanuel Quickley",
+      "actual_salary": 4171548,
+      "predicted_salary": 14217841.337837566,
+      "difference": -10046293.337837566
+    },
+    {
+      "name": "DeMar DeRozan",
+      "actual_salary": 28600000,
+      "predicted_salary": 38490193.04553518,
+      "difference": -9890193.045535177
+    },
+    {
+      "name": "Mason Plumlee",
+      "actual_salary": 5000000,
+      "predicted_salary": 14784711.323175797,
+      "difference": -9784711.323175797
+    }
+  ]
+}
