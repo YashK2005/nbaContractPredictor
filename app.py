@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from predicting_salary import predictor
 from database_setup import autocomplete_fetcher
+from salary_analysis import get_salary_differences, format_salary
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -33,7 +35,18 @@ def index():
         
         predicted_salary = f"{predicted_salary:,}"
         actual_salary = f"{actual_salary:,}"
-    return render_template('index.html', predicted_salary=predicted_salary, actual_salary=actual_salary, message=message, player_not_found=player_not_found)
+    
+    # Get leaderboard data
+    overpaid, underpaid = get_salary_differences()
+    
+    return render_template('index.html', 
+                         predicted_salary=predicted_salary, 
+                         actual_salary=actual_salary, 
+                         message=message, 
+                         player_not_found=player_not_found,
+                         overpaid=overpaid,
+                         underpaid=underpaid,
+                         format_salary=format_salary)
 
 @app.route('/how_does_this_work')
 def how_does_this_work():

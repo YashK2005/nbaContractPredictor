@@ -1,30 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NBA Player Salary Predictor - Predict if NBA players are overpaid or underpaid based on their statistics">
+    <meta name="keywords" content="NBA, salary prediction, basketball, player stats, machine learning">
     <title>NBA Player Salary Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="nav-links">
+        <a href="/how_does_this_work" class="nav-link">How Does This Work?</a>
+    </div>
+    
     <h1>NBA Player Salary Prediction</h1>
-    <form method="POST">
-        <label for="player_name">Player Name:</label>
-        <input type="text" name="player_name" id="player_name" required autocomplete="off" spellcheck="false">
+    <p class="subtitle">Enter a player's name to predict their salary and see if they're overpaid or underpaid</p>
+
+    <form method="POST" id="prediction-form">
+        <label for="player_name">Player Name</label>
+        <input type="text" name="player_name" id="player_name" required autocomplete="off" spellcheck="false" placeholder="e.g., LeBron James">
         <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
-        <br>
-        <input type="submit" value="Predict Salary">
+        <input type="submit" value="Predict Salary" id="submit-btn">
     </form>
+
     {% if player_not_found %}
+    <div class="results-container error">
+        <p>Player not found. Please check the spelling and try again.</p>
+    </div>
+    {% elif predicted_salary %}
+    <div class="results-container">
+        <h2>Salary Analysis</h2>
+        <div class="salary-info">
+            <div class="salary-box">
+                <h3>Predicted Salary</h3>
+                <p>${{ predicted_salary }}</p>
+            </div>
+            <div class="salary-box">
+                <h3>Actual Salary</h3>
+                <p>${{ actual_salary }}</p>
+            </div>
+        </div>
+        <p class="message">{{ message }}</p>
+    </div>
+    {% endif %}
+
+    <h2 class="section-title">Salary Leaderboard</h2>
+    <p class="subtitle">See which players are the most overpaid and underpaid based on their statistics</p>
+
+    <div class="leaderboard-container">
+        <div class="leaderboard-section">
+            <h2>Most Overpaid Players</h2>
+            <div class="leaderboard-list">
+                {% for player in overpaid[:20] %}
+                <div class="leaderboard-item overpaid">
+                    <div class="rank">{{ loop.index }}</div>
+                    <div class="player-info">
+                        <div class="player-name">{{ player.name }}</div>
+                        <div class="salary-info">
+                            <span>Actual: {{ format_salary(player.actual_salary) }}</span>
+                            <span>Predicted: {{ format_salary(player.predicted_salary) }}</span>
+                            <span class="difference">Overpaid by: {{ format_salary(player.difference) }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="leaderboard-section">
+            <h2>Most Underpaid Players</h2>
+            <div class="leaderboard-list">
+                {% for player in underpaid[:20] %}
+                <div class="leaderboard-item underpaid">
+                    <div class="rank">{{ loop.index }}</div>
+                    <div class="player-info">
+                        <div class="player-name">{{ player.name }}</div>
+                        <div class="salary-info">
+                            <span>Actual: {{ format_salary(player.actual_salary) }}</span>
+                            <span>Predicted: {{ format_salary(player.predicted_salary) }}</span>
+                            <span class="difference">Underpaid by: {{ format_salary(-player.difference) }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
     <script>
         // Pass Flask variables to JavaScript
-        var player_not_found = {% if player_not_found %}true{% else %}false{% endif %};
+        const playerNotFound = {% if player_not_found %}true{% else %}false{% endif %};
     </script>
-    {% elif predicted_salary %}
-    <h2>Salary Prediction:</h2>
-    <p>Predicted Salary: ${{ predicted_salary }}</p>
-    <p>Actual Salary: ${{ actual_salary }}</p>
-    <p>{{ message }}</p>
-    {% endif %}
-    <a href="/how_does_this_work">How Does this Work?</a>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
