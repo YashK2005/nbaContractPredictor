@@ -1,18 +1,19 @@
 import json
 import os
+from leaderboard_calculator import calculate_salary_differences
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def get_salary_differences():
-    """Get salary differences from the static JSON file."""
+    """Get salary differences from bundled data, with a database fallback."""
+    data_path = os.path.join(BASE_DIR, 'data', 'leaderboard_data.json')
     try:
-        data_path = os.path.join(BASE_DIR, 'public', 'static', 'leaderboard_data.json')
         with open(data_path, 'r') as f:
             data = json.load(f)
             return data['overpaid'], data['underpaid']
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"Error loading leaderboard data: {str(e)}")
-        return [], []
+        return calculate_salary_differences()
 
 def format_salary(salary):
     """Format salary with commas and dollar sign."""
