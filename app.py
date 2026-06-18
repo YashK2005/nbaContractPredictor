@@ -82,6 +82,10 @@ def autocomplete():
     results = autocomplete_fetcher(query)
     return jsonify(results)
 
+@app.route('/favicon.ico')
+def favicon():
+    return redirect(url_for('static', filename='favicon.svg'), code=308)
+
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json(silent=True) or {}
