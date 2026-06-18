@@ -118,8 +118,8 @@ main {
     grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.72fr);
     gap: 34px;
     align-items: stretch;
-    min-height: 620px;
-    padding: 70px 0 42px;
+    min-height: 500px;
+    padding: 48px 0 30px;
 }
 
 .hero-shell::before {
@@ -397,7 +397,7 @@ input[type="submit"]:disabled {
 
 .leaderboard-heading {
     max-width: 720px;
-    margin-bottom: 26px;
+    margin: 12px 0 26px;
 }
 
 .leaderboard-heading h2,
@@ -612,7 +612,7 @@ figcaption {
 
     .hero-shell {
         min-height: 0;
-        padding-top: 44px;
+        padding: 34px 0 24px;
     }
 
     .hero-shell::before {
