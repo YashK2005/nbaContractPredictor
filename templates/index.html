@@ -3,97 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="NBA Player Salary Predictor - Predict if NBA players are overpaid or underpaid based on their statistics">
+    <meta name="description" content="NBA Contract Predictor compares a player's actual salary against a stats-based model valuation.">
     <meta name="keywords" content="NBA, salary prediction, basketball, player stats, machine learning">
-    <title>NBA Player Salary Prediction</title>
+    <title>NBA Contract Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="nav-links">
-        <a href="/how_does_this_work" class="nav-link">How Does This Work?</a>
-    </div>
-    
-    <h1>NBA Player Salary Prediction</h1>
-    <p class="subtitle">Enter a player's name to predict their salary and see if they're overpaid or underpaid</p>
+<body class="home-page">
+    <header class="site-header">
+        <a class="brand-mark" href="/" aria-label="NBA Contract Predictor home">
+            <span class="brand-symbol">$</span>
+            <span>Contract Predictor</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/how_does_this_work">Method</a>
+        </nav>
+    </header>
 
-    <form method="POST" id="prediction-form">
-        <label for="player_name">Player Name</label>
-        <input type="text" name="player_name" id="player_name" required autocomplete="off" spellcheck="false" placeholder="e.g., LeBron James">
-        <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
-        <input type="submit" value="Predict Salary" id="submit-btn">
-    </form>
-
-    {% if player_not_found %}
-    <div class="results-container error">
-        <p>Player not found. Please check the spelling and try again.</p>
-    </div>
-    {% elif predicted_salary %}
-    <div class="results-container">
-        <h2>Salary Analysis</h2>
-        <div class="salary-info">
-            <div class="salary-box">
-                <h3>Predicted Salary</h3>
-                <p>${{ predicted_salary }}</p>
+    <main>
+        <section class="hero-shell">
+            <div class="hero-copy">
+                <p class="eyebrow">Salary model / 2023 dataset</p>
+                <h1>Price an NBA contract before the front office does.</h1>
+                <p class="hero-lede">Search a player to compare his actual salary with a stats-based model valuation, or scan the biggest contract mismatches in the league.</p>
             </div>
-            <div class="salary-box">
-                <h3>Actual Salary</h3>
-                <p>${{ actual_salary }}</p>
-            </div>
-        </div>
-        <p class="message">{{ message }}</p>
-    </div>
-    {% endif %}
 
-    <h2 class="section-title">Salary Leaderboard</h2>
-    <p class="subtitle">See which players are the most overpaid and underpaid based on their statistics</p>
+            <div class="prediction-panel" aria-label="Player contract valuation">
+                <form method="POST" id="prediction-form" class="predictor-form">
+                    <label for="player_name">Player name</label>
+                    <div class="search-row">
+                        <div class="field-wrap">
+                            <input type="text" name="player_name" id="player_name" required autocomplete="off" spellcheck="false" placeholder="Try Pascal Siakam">
+                            <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
+                        </div>
+                        <input type="submit" value="Run valuation" id="submit-btn">
+                    </div>
+                </form>
 
-    <div class="leaderboard-container">
-        <div class="leaderboard-section">
-            <h2>Most Overpaid Players</h2>
-            <div class="leaderboard-list">
-                {% for player in overpaid[:20] %}
-                <div class="leaderboard-item overpaid">
-                    <div class="rank">{{ loop.index }}</div>
-                    <div class="player-info">
-                        <div class="player-name">{{ player.name }}</div>
-                        <div class="salary-info">
-                            <span>Actual: {{ format_salary(player.actual_salary) }}</span>
-                            <span>Predicted: {{ format_salary(player.predicted_salary) }}</span>
-                            <span class="difference">Overpaid by: {{ format_salary(player.difference) }}</span>
+                <div id="prediction-result" class="result-slot" aria-live="polite">
+                {% if player_not_found %}
+                    <div class="result-callout error" role="alert">
+                        <span class="result-kicker">No match</span>
+                        <p>Player not found. Check the spelling and try again.</p>
+                    </div>
+                {% elif predicted_salary %}
+                    <div class="result-callout">
+                    <span class="result-kicker">Model result</span>
+                    <p class="result-message">{{ message }}</p>
+                    <div class="salary-grid">
+                        <div>
+                            <span>Predicted</span>
+                            <strong>${{ predicted_salary }}</strong>
+                        </div>
+                        <div>
+                            <span>Actual</span>
+                            <strong>${{ actual_salary }}</strong>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="leaderboard-section">
-            <h2>Most Underpaid Players</h2>
-            <div class="leaderboard-list">
-                {% for player in underpaid[:20] %}
-                <div class="leaderboard-item underpaid">
-                    <div class="rank">{{ loop.index }}</div>
-                    <div class="player-info">
-                        <div class="player-name">{{ player.name }}</div>
-                        <div class="salary-info">
-                            <span>Actual: {{ format_salary(player.actual_salary) }}</span>
-                            <span>Predicted: {{ format_salary(player.predicted_salary) }}</span>
-                            <span class="difference">Underpaid by: {{ format_salary(-player.difference) }}</span>
-                        </div>
                     </div>
+                {% endif %}
                 </div>
-                {% endfor %}
             </div>
+        </section>
+
+        <section class="leaderboard-heading">
+            <p class="eyebrow">Market board</p>
+            <h2>Largest model gaps</h2>
+            <p>Positive gaps mean the contract is above the model price. Negative gaps mean the model thinks the player is undervalued.</p>
+        </section>
+
+        <div class="leaderboard-container">
+            <section class="leaderboard-section">
+                <div class="section-head">
+                    <h3>Above model</h3>
+                    <span>Overpaid</span>
+                </div>
+                <div class="leaderboard-list">
+                    {% for player in overpaid[:20] %}
+                    <article class="leaderboard-item overpaid">
+                        <div class="rank">{{ "%02d"|format(loop.index) }}</div>
+                        <div class="player-info">
+                            <div class="player-name">{{ player.name }}</div>
+                            <div class="salary-line">
+                                <span>Actual {{ format_salary(player.actual_salary) }}</span>
+                                <span>Model {{ format_salary(player.predicted_salary) }}</span>
+                            </div>
+                        </div>
+                        <strong class="difference">+{{ format_salary(player.difference) }}</strong>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="leaderboard-section">
+                <div class="section-head">
+                    <h3>Below model</h3>
+                    <span>Underpaid</span>
+                </div>
+                <div class="leaderboard-list">
+                    {% for player in underpaid[:20] %}
+                    <article class="leaderboard-item underpaid">
+                        <div class="rank">{{ "%02d"|format(loop.index) }}</div>
+                        <div class="player-info">
+                            <div class="player-name">{{ player.name }}</div>
+                            <div class="salary-line">
+                                <span>Actual {{ format_salary(player.actual_salary) }}</span>
+                                <span>Model {{ format_salary(player.predicted_salary) }}</span>
+                            </div>
+                        </div>
+                        <strong class="difference">-{{ format_salary(-player.difference) }}</strong>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Pass Flask variables to JavaScript
-        const playerNotFound = {% if player_not_found %}true{% else %}false{% endif %};
+        window.playerNotFound = {% if player_not_found %}true{% else %}false{% endif %};
+        window.clearResultOnRefresh = {% if clear_result_on_refresh %}true{% else %}false{% endif %};
     </script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}?v=6"></script>
 </body>
 </html>

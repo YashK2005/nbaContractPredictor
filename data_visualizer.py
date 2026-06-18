@@ -1,4 +1,3 @@
-from matplotlib import pyplot as plt
 import numpy as np
 from database_setup import data_plot_fetcher
 
@@ -33,6 +32,8 @@ indexes = {
 }
 
 def find_ideal_parameters():
+    from matplotlib import pyplot as plt
+
     #selecting best parameters for model by calculating pearson coefficients for 40+ stats
     independent = "pts"
     x = np.array([])

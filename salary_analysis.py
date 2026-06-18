@@ -1,10 +1,13 @@
 import json
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def get_salary_differences():
     """Get salary differences from the static JSON file."""
     try:
-        with open('static/leaderboard_data.json', 'r') as f:
+        data_path = os.path.join(BASE_DIR, 'public', 'static', 'leaderboard_data.json')
+        with open(data_path, 'r') as f:
             data = json.load(f)
             return data['overpaid'], data['underpaid']
     except (FileNotFoundError, json.JSONDecodeError) as e:

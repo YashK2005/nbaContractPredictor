@@ -5,88 +5,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn how the NBA Player Salary Predictor works using machine learning and player statistics">
-    <title>How Does This Work? - NBA Player Salary Prediction</title>
+    <meta name="description" content="Learn how the NBA Contract Predictor prices players using linear regression and box-score statistics.">
+    <title>Method - NBA Contract Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <a href="/" class="nav-link">Back to Home</a>
-    
-    <h1>How Does This Work?</h1>
-    
-    <div class="content-container">
-        <section class="explanation-section">
-            <h2>Overview</h2>
-            <p>This project uses supervised machine learning (linear regression) to predict NBA player salaries based on their statistics. The model compares predicted salaries with actual salaries to determine if players are overpaid or underpaid.</p>
+<body class="method-page">
+    <header class="site-header">
+        <a class="brand-mark" href="/" aria-label="NBA Contract Predictor home">
+            <span class="brand-symbol">$</span>
+            <span>Contract Predictor</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/">Predictor</a>
+        </nav>
+    </header>
+
+    <main class="method-layout">
+        <section class="method-hero">
+            <p class="eyebrow">Model notes</p>
+            <h1>How the contract price is built</h1>
+            <p>The app uses supervised machine learning to estimate a player's salary from production data, then compares that model price against the real contract number.</p>
         </section>
 
-        <section class="explanation-section">
-            <h2>Data Collection</h2>
-            <p>We collect data about NBA players using the SportsData.io API, which provides comprehensive statistics and salary information for over 340 players. This data is organized and stored in a SQLite database for efficient access.</p>
+        <section class="method-grid">
+            <article class="method-step">
+                <span>01</span>
+                <h2>Collect</h2>
+                <p>SportsData.io salary and stat records are parsed into SQLite tables for more than 340 NBA players. The app keeps salary, biographical data, and box-score production in one combined table so predictions can be made with a fast local lookup.</p>
+            </article>
+
+            <article class="method-step">
+                <span>02</span>
+                <h2>Select</h2>
+                <p>More than 50 statistics were screened against salary using Pearson correlation. The final model keeps 28 inputs across experience, total production, usage, PER, and per-game versions of high-signal stats like points, assists, rebounds, free throws, and turnovers.</p>
+            </article>
+
+            <article class="method-step">
+                <span>03</span>
+                <h2>Normalize</h2>
+                <p>Each feature is z-score normalized before training and prediction. That puts very different stat ranges on comparable scales, so total minutes or points do not automatically overpower smaller-scale inputs like usage rate or PER.</p>
+            </article>
+
+            <article class="method-step">
+                <span>04</span>
+                <h2>Price</h2>
+                <p>Linear regression is trained with gradient descent for 100,000 iterations using mean squared error as the cost function. The learned weights become the valuation formula used when you search a player.</p>
+            </article>
         </section>
 
-        <section class="explanation-section">
-            <h2>Feature Selection</h2>
-            <p>We analyzed over 50 different statistics to identify the most relevant features for salary prediction. Using Pearson correlation coefficients, we selected 28 parameters that have the strongest relationship with player salaries.</p>
-            
+        <section class="detail-section">
+            <div class="section-head">
+                <h2>Prediction flow</h2>
+                <span>Search to result</span>
+            </div>
+            <div class="detail-grid">
+                <div>
+                    <h3>Lookup</h3>
+                    <p>The submitted name is matched against first name, last name, full name, and reversed full name. If multiple players match, the highest-salary match appears first.</p>
+                </div>
+                <div>
+                    <h3>Transform</h3>
+                    <p>The player row is converted into the same 28-feature vector used during training, including both season totals and per-game versions of key stats.</p>
+                </div>
+                <div>
+                    <h3>Compare</h3>
+                    <p>The model salary is compared with the player's actual salary. If the model price is higher, the player is labeled underpaid; if the contract is higher, the player is labeled overpaid.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="section-head">
+                <h2>Feature checks</h2>
+                <span>Correlation samples</span>
+            </div>
+            <p class="section-note">These charts show why feature selection matters. Points had a strong relationship with salary in the dataset, while three-point percentage alone was much weaker. The model works better by combining many signals instead of relying on one headline stat.</p>
             <div class="image-container">
                 <figure>
-                    <img class="fig_img" src="{{ url_for('static', filename='pts_salary.png') }}" alt="Points vs Salary Correlation">
-                    <figcaption>Points vs Salary (Correlation: 0.73)</figcaption>
+                    <img class="fig_img" src="{{ url_for('static', filename='pts_salary.png') }}" alt="Points vs salary scatter plot">
+                    <figcaption>Points vs salary, correlation 0.73</figcaption>
                 </figure>
                 <figure>
-                    <img class="fig_img" src="{{ url_for('static', filename='3pt%_salary.png') }}" alt="3-Point Percentage vs Salary Correlation">
-                    <figcaption>3-Point % vs Salary (Correlation: 0.05)</figcaption>
+                    <img class="fig_img" src="{{ url_for('static', filename='3pt%_salary.png') }}" alt="Three-point percentage vs salary scatter plot">
+                    <figcaption>Three-point percentage vs salary, correlation 0.05</figcaption>
                 </figure>
             </div>
         </section>
 
-        <section class="explanation-section">
-            <h2>Model Training</h2>
-            <p>Our model uses linear regression with gradient descent optimization. The process includes:</p>
-            <ul>
-                <li>Z-score normalization of features to ensure consistent scaling</li>
-                <li>Mean squared error as the cost function</li>
-                <li>Gradient descent optimization over 100,000 iterations</li>
-            </ul>
-
+        <section class="chart-section">
+            <div class="section-head">
+                <h2>Training math</h2>
+                <span>Linear regression</span>
+            </div>
+            <p class="section-note">The model minimizes the gap between predicted salary and actual salary across the training data. Gradient descent repeatedly adjusts each feature weight until the cost function settles into a better fit.</p>
             <div class="image-container">
                 <figure>
-                    <img class="fig_img" src="{{ url_for('static', filename='CostFormula.png') }}" alt="Cost Function Formula">
-                    <figcaption>Mean Squared Error Cost Function</figcaption>
+                    <img class="fig_img" src="{{ url_for('static', filename='CostFormula.png') }}" alt="Mean squared error cost function">
+                    <figcaption>Mean squared error cost function</figcaption>
                 </figure>
                 <figure>
-                    <img class="fig_img" src="{{ url_for('static', filename='GradientFormula.png') }}" alt="Gradient Formula">
-                    <figcaption>Gradient Descent Update Rule</figcaption>
+                    <img class="fig_img" src="{{ url_for('static', filename='GradientFormula.png') }}" alt="Gradient descent update rule">
+                    <figcaption>Gradient descent update rule</figcaption>
                 </figure>
             </div>
         </section>
-
-        <section class="explanation-section">
-            <h2>Prediction Process</h2>
-            <p>When you enter a player's name:</p>
-            <ol>
-                <li>The system fetches the player's statistics from our database</li>
-                <li>Features are normalized using pre-computed means and standard deviations</li>
-                <li>The model predicts the player's expected salary</li>
-                <li>Results are compared with actual salary to determine if the player is overpaid or underpaid</li>
-            </ol>
-        </section>
-
-        <section class="explanation-section">
-            <h2>Technical Stack</h2>
-            <p>This project is built using:</p>
-            <ul>
-                <li>Python with Flask for the backend</li>
-                <li>SQLite for data storage</li>
-                <li>NumPy for numerical computations</li>
-                <li>Matplotlib for data visualization</li>
-                <li>Modern HTML5, CSS3, and JavaScript for the frontend</li>
-            </ul>
-        </section>
-    </div>
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}?v=6"></script>
 </body>
 </html>
